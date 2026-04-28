@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/login", "destination": "/api/login.js" },
+    { "source": "/api/register", "destination": "/api/register.js" },
+    { "source": "/api/config", "destination": "/api/config.js" },
+    { "source": "/api/save-post", "destination": "/api/save-post.js" },
+    { "source": "/api/get-posts", "destination": "/api/get-posts.js" },
+    { "source": "/api/delete-post", "destination": "/api/delete-post.js" },
+    { "source": "/api/delete-account", "destination": "/api/delete-account.js" },
+    { "source": "/api/update-profile", "destination": "/api/update-profile.js" },
+    { "source": "/api/check-username", "destination": "/api/check-username.js" },
+    { "source": "/api/save-comment", "destination": "/api/save-comment.js" },
+    { "source": "/api/get-comments", "destination": "/api/get-comments.js" },
+    { "source": "/api/activity-log", "destination": "/api/activity-log.js" },
+    { "source": "/dashboard", "destination": "/public/dashboard.html" },
+    { "source": "/dashboard.js", "destination": "/public/dashboard.js" },
+    { "source": "/style.css", "destination": "/public/style.css" },
+    { "source": "/app.js", "destination": "/public/app.js" },
+    { "source": "/", "destination": "/public/index.html" }
+  ]
+}
