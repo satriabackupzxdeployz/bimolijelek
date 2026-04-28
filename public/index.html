@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Coders - Masuk / Daftar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">Coders</div>
+                <div class="tagline" id="formTagline">Masuk ke akun Anda</div>
+            </div>
+            
+            <div class="auth-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Username atau Email</label>
+                        <input type="text" class="form-input" id="loginUsername" placeholder="Masukkan username atau email" autocomplete="off">
+                        <div class="error-message" id="loginUserError">
+                            <i class="fas fa-exclamation-circle"></i> Username/Email harus diisi
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input password-input" id="loginPassword" placeholder="Masukkan password">
+                        <button type="button" class="password-toggle" data-target="loginPassword">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                        <div class="error-message" id="loginPassError">
+                            <i class="fas fa-exclamation-circle"></i> Password harus diisi
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="loginBtn">Masuk</button>
+                </form>
+                
+                <form id="registerForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Username <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="regUsername" placeholder="pilih username unik" autocomplete="off">
+                        <div class="error-message" id="regUsernameError">
+                            <i class="fas fa-exclamation-circle"></i> Username harus diisi
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email <span class="required">*</span></label>
+                        <input type="email" class="form-input" id="regEmail" placeholder="email@contoh.com" autocomplete="off">
+                        <div class="error-message" id="regEmailError">
+                            <i class="fas fa-exclamation-circle"></i> Email harus diisi dengan format yang benar
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password <span class="required">*</span></label>
+                        <input type="password" class="form-input password-input" id="regPassword" placeholder="minimal 6 karakter">
+                        <button type="button" class="password-toggle" data-target="regPassword">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                        <div class="error-message" id="regPasswordError">
+                            <i class="fas fa-exclamation-circle"></i> Password minimal 6 karakter
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ulangi Password <span class="required">*</span></label>
+                        <input type="password" class="form-input password-input" id="regConfirmPassword" placeholder="konfirmasi password">
+                        <button type="button" class="password-toggle" data-target="regConfirmPassword">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                        <div class="error-message" id="regConfirmError">
+                            <i class="fas fa-exclamation-circle"></i> Password tidak cocok
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Lahir <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="regBirthdate">
+                        <div class="error-message" id="regBirthError">
+                            <i class="fas fa-exclamation-circle"></i> Tanggal lahir harus diisi
+                        </div>
+                    </div>
+                    
+                    <div class="captcha-container">
+                        <div class="captcha-label">
+                            <i class="fas fa-shield-alt"></i> Verifikasi keamanan
+                        </div>
+                        <div class="slider-container" id="sliderContainer">
+                            <div class="slider-track" id="sliderTrack"></div>
+                            <div class="slider-thumb" id="sliderThumb">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                            <div class="slider-text" id="sliderText">Geser ke kanan untuk verifikasi</div>
+                        </div>
+                        <div class="captcha-warning" id="captchaWarning">
+                            <i class="fas fa-exclamation-circle"></i> <span id="captchaWarningText">Isi data terlebih dahulu</span>
+                        </div>
+                        <div class="captcha-success-text" id="captchaSuccess">
+                            <i class="fas fa-check-circle"></i> Verifikasi berhasil!
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="registerBtn" disabled>Daftar Sekarang</button>
+                </form>
+                
+                <div id="googleContainer">
+                    <div class="divider">atau</div>
+                    <button class="google-btn" id="googleAuthBtn">
+                        <img src="https://www.google.com/favicon.ico" alt="Google">
+                        Lanjutkan dengan Google
+                    </button>
+                </div>
+                
+                <div class="auth-toggle">
+                    <span class="small-text" id="toggleText">Belum punya akun? </span>
+                    <span class="toggle-link" id="toggleLink">Daftar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="check-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3>Berhasil!</h3>
+            <p id="successMessage">Selamat datang di Coders</p>
+            <button class="success-btn" id="successBtn">Lanjutkan</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
