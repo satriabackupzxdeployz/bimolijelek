@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coders - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-header">
+        <a href="#" class="logo" id="logoHeader">Coders</a>
+        <div class="header-actions">
+            <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </button>
+            <div class="profile-icon-top" id="profileIconTop"></div>
+        </div>
+    </div>
+    
+    <div class="main-content active" id="homePage">
+        <div class="feed-tabs">
+            <div class="tab active">Untuk Anda</div>
+            <div class="tab">Mengikuti</div>
+        </div>
+        
+        <div class="post-compose">
+            <div class="user-avatar" id="currentUserAvatar"></div>
+            <div class="post-input-container">
+                <div class="post-type-buttons" id="postTypeButtons">
+                    <button class="post-type-button" data-type="media" title="Media">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <button class="post-type-button" data-type="poll" title="Polling">
+                        <i class="fas fa-poll"></i>
+                    </button>
+                    <button class="post-type-button" data-type="event" title="Kalender">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </div>
+                
+                <textarea class="post-input" id="postInput" placeholder="Apa yang sedang terjadi?"></textarea>
+                <div class="media-preview" id="mediaPreview" style="display: none;"></div>
+                <div class="poll-form" id="pollForm" style="display: none;">
+                    <input type="text" class="poll-question" id="pollQuestion" placeholder="Masukkan pertanyaan polling">
+                    <div id="pollOptions">
+                        <div class="poll-option"><input type="text" placeholder="Pilihan 1"></div>
+                        <div class="poll-option"><input type="text" placeholder="Pilihan 2"></div>
+                    </div>
+                    <button class="poll-add-option" id="addPollOption">+ Tambah Pilihan</button>
+                    <div class="poll-duration">
+                        <span>Durasi:</span>
+                        <select id="pollDuration">
+                            <option value="1">1 Hari</option>
+                            <option value="3">3 Hari</option>
+                            <option value="7">1 Minggu</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="event-form" id="eventForm" style="display: none;">
+                    <input type="text" class="event-input" id="eventTitle" placeholder="Judul acara">
+                    <div class="event-date">
+                        <input type="datetime-local" id="eventDate">
+                    </div>
+                    <input type="text" class="event-input" id="eventLocation" placeholder="Lokasi (opsional)">
+                </div>
+                
+                <div class="post-actions">
+                    <div class="post-icons">
+                        <div class="post-icon" title="Upload Media" id="mediaUploadBtn">
+                            <i class="fas fa-image"></i>
+                            <input type="file" id="mediaUploadInput" accept="image/*,video/*" multiple style="display: none;">
+                        </div>
+                    </div>
+                    <button class="post-submit" id="postSubmit" disabled>Post</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feed" id="postFeed"></div>
+    </div>
+    
+    <div class="main-content" id="searchPage">
+        <div class="search-container">
+            <div class="search-box">
+                <div class="search-icon"><i class="fas fa-search"></i></div>
+                <input type="text" class="search-input" id="mainSearchInput" placeholder="Search Coders">
+            </div>
+        </div>
+        <div class="search-results" id="searchResults">
+            <div class="search-message">
+                <i class="fas fa-search fa-2x" style="margin-bottom: 16px; color: var(--text-secondary);"></i>
+                <p>Cari pengguna, topik, atau tagar</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content" id="notificationsPage">
+        <div class="top-header" style="position: static;">
+            <div style="font-size: 20px; font-weight: 700;">Notifikasi</div>
+            <button class="settings-btn" id="markAllReadBtn"><i class="fas fa-check-double"></i></button>
+        </div>
+        <div class="notifications-container" id="notificationsList">
+            <div class="search-message"><p>Tidak ada notifikasi</p></div>
+        </div>
+    </div>
+    
+    <div class="main-content" id="chatPage">
+        <div class="search-container">
+            <div class="search-box">
+                <div class="search-icon"><i class="fas fa-search"></i></div>
+                <input type="text" class="search-input" id="chatSearchInput" placeholder="Cari orang untuk diajak chat">
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="search-message" id="chatList">
+                <i class="fas fa-comments fa-2x" style="margin-bottom: 16px; color: var(--text-secondary);"></i>
+                <p>Selamat Datang</p>
+            </div>
+            <div class="chat-search-results" id="chatSearchResults" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <div class="main-content" id="profilePage">
+        <div class="profile-banner" id="profileBanner"></div>
+        <div class="profile-header">
+            <div class="profile-avatar-large" id="profileAvatarLarge">
+                <button class="avatar-edit" id="editAvatarBtn"><i class="fas fa-camera"></i></button>
+            </div>
+            <div class="profile-name" id="profileNameDisplay"></div>
+            <div class="profile-handle" id="profileHandleDisplay"></div>
+            <div class="profile-bio" id="profileBioDisplay"></div>
+            <div class="profile-stats">
+                <div class="profile-stat"><span class="stat-count" id="postCount">0</span><span class="stat-label">Postingan</span></div>
+                <div class="profile-stat"><span class="stat-count" id="followerCount">0</span><span class="stat-label">Pengikut</span></div>
+                <div class="profile-stat"><span class="stat-count" id="followingCount">0</span><span class="stat-label">Mengikuti</span></div>
+            </div>
+        </div>
+        <div class="profile-actions">
+            <button class="profile-btn" id="editProfileBtn">Edit Profil</button>
+            <button class="profile-btn logout" id="logoutBtn">Logout</button>
+        </div>
+        <div class="profile-settings">
+            <div class="setting-item" id="accountSettingsBtn">
+                <div class="setting-info"><div class="setting-title">Akun</div><div class="setting-desc">Pengaturan akun dan keamanan</div></div>
+                <div class="setting-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="setting-item" id="privacySettingsBtn">
+                <div class="setting-info"><div class="setting-title">Privasi</div><div class="setting-desc">Kontrol siapa yang bisa melihat konten Anda</div></div>
+                <div class="setting-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="setting-item">
+                <div class="setting-info"><div class="setting-title">Notifikasi</div><div class="setting-desc">Kelola notifikasi yang Anda terima</div></div>
+                <div class="setting-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="setting-item" id="dangerZoneBtn">
+                <div class="setting-info"><div class="setting-title" style="color: var(--error-color);">Zona Berbahaya</div><div class="setting-desc">Hapus akun dan data lainnya</div></div>
+                <div class="setting-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sidebar-left" id="desktopSidebar">
+        <div>
+            <div class="logo-side" id="logoDesktop">Coders</div>
+            <ul class="nav-menu">
+                <li><a class="nav-link active" data-page="home"><div class="nav-icon-side"><i class="fas fa-home"></i></div><span>Home</span></a></li>
+                <li><a class="nav-link" data-page="search"><div class="nav-icon-side"><i class="fas fa-search"></i></div><span>Search</span></a></li>
+                <li><a class="nav-link" data-page="notifications"><div class="nav-icon-side"><i class="fas fa-bell"></i></div><span>Notifikasi</span></a></li>
+                <li><a class="nav-link" data-page="chat"><div class="nav-icon-side"><i class="fas fa-comment"></i></div><span>Chat</span></a></li>
+                <li><a class="nav-link" data-page="profile"><div class="nav-icon-side"><i class="fas fa-user"></i></div><span>Profile</span></a></li>
+                <li><a class="nav-link" id="createContentDesktop"><div class="nav-icon-side"><i class="fas fa-plus-circle"></i></div><span>Buat Konten</span></a></li>
+            </ul>
+            <button class="post-button-side" id="postButtonDesktop">Post</button>
+        </div>
+        <div class="user-profile-side" data-page="profile">
+            <div class="user-avatar-side" id="sidebarAvatar"></div>
+            <div class="user-info-side">
+                <div class="user-name-side" id="sidebarName"></div>
+                <div class="user-handle-side" id="sidebarHandle"></div>
+            </div>
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+    </div>
+    
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header"><div class="modal-title">Buat Konten Baru</div><button class="modal-close" id="closeModal">&times;</button></div>
+            <div class="modal-body">
+                <div class="post-compose" style="border: none; padding: 0;">
+                    <div class="user-avatar" id="modalUserAvatar"></div>
+                    <div class="post-input-container">
+                        <textarea class="post-input" id="modalPostInput" placeholder="Apa yang ingin Anda bagikan?" style="min-height: 150px;"></textarea>
+                        <div class="post-actions">
+                            <div class="post-icons"><div class="post-icon" title="Media"><i class="fas fa-image"></i></div></div>
+                            <button class="post-submit" id="modalPostSubmit" disabled>Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header"><div class="modal-title">Edit Profil</div><button class="modal-close" id="closeEditProfileModal">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Display Name</label><input type="text" class="form-input" id="editDisplayName" placeholder="Nama tampilan Anda"></div>
+                <div class="form-group"><label class="form-label">Username</label><input type="text" class="form-input" id="editUsername" placeholder="@username"></div>
+                <div class="form-group"><label class="form-label">Bio</label><textarea class="form-textarea" id="editBio" placeholder="Ceritakan tentang diri Anda"></textarea></div>
+                <div class="form-group"><label class="form-label">Role</label><input type="text" class="form-input" id="editRole" placeholder="Contoh: Owner & Developer" disabled></div>
+                <div class="form-group">
+                    <label class="form-label">Centang Verifikasi</label>
+                    <div class="checkmark-options" id="checkmarkOptions">
+                        <div class="checkmark-option blue selected" data-type="blue"><i class="fas fa-check-circle"></i><div>Centang Biru</div></div>
+                        <div class="checkmark-option gold" data-type="gold"><i class="fas fa-check-circle"></i><div>Centang Emas</div></div>
+                        <div class="checkmark-option custom" data-type="custom"><i class="fas fa-upload"></i><div>Upload Sticker</div></div>
+                    </div>
+                    <input type="file" id="customCheckmarkUpload" accept="image/*" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Foto Profil</label>
+                    <div class="file-upload" id="avatarUpload">
+                        <input type="file" accept="image/*" id="avatarUploadInput">
+                        <div class="file-upload-text"><i class="fas fa-cloud-upload-alt"></i><div id="avatarUploadText">Klik untuk upload foto profil</div><div style="font-size: 12px;">Fitur upload belum tersedia</div></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Banner Profil</label>
+                    <div class="file-upload" id="bannerUpload">
+                        <input type="file" accept="image/*,video/*" id="bannerUploadInput">
+                        <div class="file-upload-text"><i class="fas fa-cloud-upload-alt"></i><div id="bannerUploadText">Klik untuk upload banner</div><div style="font-size: 12px;">Fitur upload belum tersedia</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="cancelEditProfile">Batal</button>
+                <button class="modal-btn primary" id="saveProfile">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <div class="modal-header"><div class="modal-title">Pengaturan Privasi</div><button class="modal-close" id="closePrivacyModal">&times;</button></div>
+            <div class="modal-body">
+                <div class="privacy-options" id="privacyOptions">
+                    <div class="privacy-option selected" data-privacy="public"><div class="privacy-radio"></div><div class="privacy-info"><div class="privacy-title">Public</div><div class="privacy-desc">Semua orang dapat melihat postingan Anda</div></div></div>
+                    <div class="privacy-option" data-privacy="friends"><div class="privacy-radio"></div><div class="privacy-info"><div class="privacy-title">Hanya Teman/Mengikuti</div><div class="privacy-desc">Hanya pengguna yang saling mengikuti dapat melihat</div></div></div>
+                    <div class="privacy-option" data-privacy="private"><div class="privacy-radio"></div><div class="privacy-info"><div class="privacy-title">Hanya Diri Sendiri</div><div class="privacy-desc">Hanya Anda yang dapat melihat postingan</div></div></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="cancelPrivacy">Batal</button>
+                <button class="modal-btn primary" id="savePrivacy">Simpan</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="deleteAccountModal">
+        <div class="modal-content">
+            <div class="modal-header"><div class="modal-title" style="color: var(--error-color);">Hapus Akun</div><button class="modal-close" id="closeDeleteModal">&times;</button></div>
+            <div class="modal-body">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <i class="fas fa-exclamation-triangle fa-3x" style="color: var(--error-color); margin-bottom: 16px;"></i>
+                    <h3 style="margin-bottom: 12px;">Hapus Akun Anda?</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Tindakan ini tidak dapat dibatalkan. Semua data Anda akan dihapus secara permanen.</p>
+                    <div style="background-color: var(--card-background); padding: 16px; border-radius: 8px; text-align: left; margin-bottom: 20px;">
+                        <p style="margin-bottom: 8px; font-weight: bold;">Yang akan dihapus:</p>
+                        <ul style="color: var(--text-secondary); padding-left: 20px;">
+                            <li>Semua postingan Anda</li>
+                            <li>Semua percakapan</li>
+                            <li>Semua pengikut dan yang Anda ikuti</li>
+                            <li>Semua preferensi dan pengaturan</li>
+                        </ul>
+                    </div>
+                    <div class="form-group"><label class="form-label">Ketik "DELETE" untuk konfirmasi</label><input type="text" class="form-input" id="deleteConfirmation" placeholder="DELETE"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="cancelDelete">Batal</button>
+                <button class="modal-btn danger" id="confirmDelete" disabled>Hapus Akun Permanen</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="profilePreviewModal">
+        <div class="modal-content">
+            <div class="modal-header"><div class="modal-title">Profil</div><button class="modal-close" id="closeProfilePreviewModal">&times;</button></div>
+            <div class="modal-body"><div class="profile-preview" id="profilePreviewContent"></div></div>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-page="home"><div class="nav-icon"><i class="fas fa-home"></i></div><span>Home</span></button>
+        <button class="nav-item" data-page="search"><div class="nav-icon"><i class="fas fa-search"></i></div><span>Search</span></button>
+        <button class="nav-item" data-page="notifications"><div class="nav-icon"><i class="fas fa-bell"></i></div><span>Notifikasi</span></button>
+        <button class="nav-add" id="createContentMobile"><i class="fas fa-plus"></i></button>
+        <button class="nav-item" data-page="chat"><div class="nav-icon"><i class="fas fa-comment"></i></div><span>Chat</span></button>
+        <button class="nav-item" data-page="profile"><div class="nav-icon"><i class="fas fa-user"></i></div><span>Profile</span></button>
+    </nav>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
